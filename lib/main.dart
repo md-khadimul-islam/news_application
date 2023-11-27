@@ -1,4 +1,3 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:news_application/pages/new_home_page.dart';
 import 'package:news_application/splash.dart';
