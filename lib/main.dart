@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:news_application/pages/new_home_page.dart';
+import 'package:news_application/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,12 +20,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: AnimatedSplashScreen(
-        nextScreen: const NewsHomePage(),
-        splash: 'images/icon.jpg',
-        duration: 4000,
-        backgroundColor: Colors.black,
-      ),
+      home: const SplashScreen(),
+      // home: AnimatedSplashScreen(
+      //   nextScreen: const NewsHomePage(),
+      //   splash: 'images/app_icon.jpg',
+      //   duration: 4000,
+      //   backgroundColor: Colors.black,
+      // ),
     );
   }
 }
