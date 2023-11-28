@@ -38,6 +38,7 @@ dependencies:
   webview_flutter:
   google_fonts:
   flutter_spinkit:
+  cached_network_image:
   intl:
 
 
