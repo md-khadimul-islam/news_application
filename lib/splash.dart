@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_application/pages/new_home_page.dart';
+import 'package:news_application/pages/news_home_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

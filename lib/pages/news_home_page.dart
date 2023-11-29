@@ -13,21 +13,12 @@ class NewsHomePage extends StatefulWidget {
   State<NewsHomePage> createState() => _NewsHomePageState();
 }
 
-enum FilterList {
-  bbcNews,
-  AlJazeeraEnglish,
-  arsTechnica,
-  cnn,
-  espn,
-  cbsNews,
-  foxSports,
-  googleNews
-}
+enum FilterList { bbcNews , aryNews , independent , cnn , alJazeera }
 
 class _NewsHomePageState extends State<NewsHomePage> {
   NewsView newsView = NewsView();
   final format = DateFormat('MMMM dd, yyyy');
-  FilterList? selectMenu;
+  FilterList? selectedMenu;
   String name = 'bbc-news';
 
   @override
@@ -53,23 +44,23 @@ class _NewsHomePageState extends State<NewsHomePage> {
               if(FilterList.bbcNews.name == item.name) {
                 name = 'bbc-news';
               }
-              if(FilterList.AlJazeeraEnglish.name == item.name) {
+              if(FilterList.alJazeera.name == item.name) {
                 name = 'al-jazeera-english';
               }
 
               setState(() {
-                selectMenu = item;
+                selectedMenu = item;
               });
             },
-            initialValue: selectMenu,
-            icon: Icon(Icons.more_vert_outlined),
+            initialValue: selectedMenu,
+            icon: Icon(Icons.more_vert_outlined, color: Colors.black,),
             itemBuilder: (BuildContext context) => <PopupMenuEntry<FilterList>>[
               PopupMenuItem<FilterList>(
                 value: FilterList.bbcNews,
                 child: Text('BBC News'),
               ),
               PopupMenuItem<FilterList>(
-                value: FilterList.AlJazeeraEnglish,
+                value: FilterList.alJazeera,
                 child: Text('Al Jazeera'),
               ),
             ],
