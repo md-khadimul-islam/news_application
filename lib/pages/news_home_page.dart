@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:news_application/models/news_headlines.dart';
+import 'package:news_application/pages/news_categories_page.dart';
 import 'package:news_application/view_model/news_view.dart';
 
 class NewsHomePage extends StatefulWidget {
@@ -13,13 +14,13 @@ class NewsHomePage extends StatefulWidget {
   State<NewsHomePage> createState() => _NewsHomePageState();
 }
 
-enum FilterList { bbcNews , aryNews , independent , cnn , alJazeera }
+enum FilterList { bbcNews , abcNews , nationalGeographic , cnn , alJazeera, espn }
 
 class _NewsHomePageState extends State<NewsHomePage> {
   NewsView newsView = NewsView();
   final format = DateFormat('MMMM dd, yyyy');
   FilterList? selectedMenu;
-  String name = 'bbc-news';
+  String channelName = 'bbc-news';
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,9 @@ class _NewsHomePageState extends State<NewsHomePage> {
           style: GoogleFonts.poppins(fontSize: 30, fontWeight: FontWeight.w700),
         ),
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsCategoriesPage()));
+          },
           icon: Image.asset(
             'images/category_icon.png',
             height: 30,
@@ -42,10 +45,22 @@ class _NewsHomePageState extends State<NewsHomePage> {
           PopupMenuButton<FilterList>(
             onSelected: (FilterList item) {
               if(FilterList.bbcNews.name == item.name) {
-                name = 'bbc-news';
+                channelName = 'bbc-news';
+              }
+              if(FilterList.abcNews.name == item.name) {
+                channelName = 'abc-news';
+              }
+              if(FilterList.nationalGeographic.name == item.name) {
+                channelName = 'national-geographic';
+              }
+              if(FilterList.cnn.name == item.name) {
+                channelName = 'cnn';
               }
               if(FilterList.alJazeera.name == item.name) {
-                name = 'al-jazeera-english';
+                channelName = 'al-jazeera-english';
+              }
+              if (FilterList.espn.name == item.name) {
+                channelName = 'espn';
               }
 
               setState(() {
@@ -60,8 +75,24 @@ class _NewsHomePageState extends State<NewsHomePage> {
                 child: Text('BBC News'),
               ),
               PopupMenuItem<FilterList>(
+                value: FilterList.abcNews,
+                child: Text('ABC News'),
+              ),
+              PopupMenuItem<FilterList>(
+                value: FilterList.nationalGeographic,
+                child: Text('National Geographic'),
+              ),
+              PopupMenuItem<FilterList>(
+                value: FilterList.cnn,
+                child: Text('CNN'),
+              ),
+              PopupMenuItem<FilterList>(
                 value: FilterList.alJazeera,
                 child: Text('Al Jazeera'),
+              ),
+              PopupMenuItem<FilterList>(
+                value: FilterList.espn,
+                child: Text('ESPN'),
               ),
             ],
           ),
@@ -71,9 +102,9 @@ class _NewsHomePageState extends State<NewsHomePage> {
         children: [
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.55,
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width * 0.55,
             child: FutureBuilder<NewsHeadlines>(
-              future: newsView.fetchNewsHeadlines(),
+              future: newsView.fetchNewsHeadlines(channelName),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
