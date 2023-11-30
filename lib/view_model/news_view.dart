@@ -1,4 +1,5 @@
 
+import 'package:news_application/models/news.dart';
 import 'package:news_application/models/news_categories.dart';
 import 'package:news_application/models/news_headlines.dart';
 import 'package:news_application/repository/news_repository.dart';
@@ -13,6 +14,10 @@ class NewsView {
   }
   Future<NewsCategories> fetchNewsCategories(String category) async {
     final response = await _rep.fetchNewsCategories(category);
+    return response;
+  }
+  Future<News> getNews () async {
+    final response = await _rep.getNews();
     return response;
   }
 }

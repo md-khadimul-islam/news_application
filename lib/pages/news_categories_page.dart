@@ -113,8 +113,10 @@ class _NewsCategoriesPageState extends State<NewsCategoriesPage> {
                                   fit: BoxFit.cover,
                                   height: height * .18,
                                   width: width * .3,
+                                    placeholder: (context, url) => Center(child: SpinKitCircle(color: Colors.blue, size: 50,),),
                                   errorWidget: (context, url, error) => Icon(
                                     Icons.error_outline,
+                                    size: 50,
                                     color: Colors.red,
                                   ),
                                 ),
@@ -138,28 +140,27 @@ class _NewsCategoriesPageState extends State<NewsCategoriesPage> {
                                     Expanded(
                                       child: ListView(
                                         scrollDirection: Axis.horizontal,
-                                        children: [
-                                          Text(
-                                            '${item.source!.name}',
-                                            style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w700,
-                                                color: Colors.black54,
-                                                fontSize: 15),
-                                          ),
-                                          SizedBox(
-                                            width: 40,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                format.format(dateTime),
-                                                style: GoogleFonts.poppins(
-                                                    fontSize: 15,
-                                                    color: Colors.black54),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                         children: [
+                                           Row(
+                                             children: [
+                                               Text(
+                                                 '${item.source!.name}',
+                                                 style: GoogleFonts.poppins(
+                                                     fontWeight: FontWeight.w700,
+                                                     color: Colors.black54,
+                                                     fontSize: 15),
+                                               ),
+                                               SizedBox(width: 40,),
+                                               Text(
+                                                 format.format(dateTime),
+                                                 style: GoogleFonts.poppins(
+                                                     fontWeight: FontWeight.w700,
+                                                     fontSize: 15,
+                                                     color: Colors.black54),
+                                               ),
+                                             ],
+                                           ),
+                                         ],
                                       ),
                                     ),
                                   ],
