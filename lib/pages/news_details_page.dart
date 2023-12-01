@@ -112,10 +112,7 @@ class NewsDetailsPage extends StatelessWidget {
       //         ),
       //         Container(
       //           height: 200,
-      //           width: 200,
-      //
-      //           child: PlatformViewPlaceholder<RenderAndroidView>(
-      //
+      //           child: WebViewWidget(
       //             controller: _controller,
       //           ),
       //         ),
