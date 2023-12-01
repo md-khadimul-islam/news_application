@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:news_application/models/news_categories.dart';
+import 'package:news_application/pages/categories_details_page.dart';
 import 'package:news_application/view_model/news_view.dart';
 
 class NewsCategoriesPage extends StatefulWidget {
@@ -35,7 +36,11 @@ class _NewsCategoriesPageState extends State<NewsCategoriesPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text('Categories News', style: GoogleFonts.novaSquare(fontSize: 25, color: Colors.black, fontWeight: FontWeight.w700),),
+        title: Text(
+          'Categories News',
+          style: GoogleFonts.novaSquare(
+              fontSize: 25, color: Colors.black, fontWeight: FontWeight.w700),
+        ),
       ),
       body: Column(
         children: [
@@ -57,9 +62,8 @@ class _NewsCategoriesPageState extends State<NewsCategoriesPage> {
                       padding: const EdgeInsets.only(right: 12.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: categoryName == citem
-                              ? Colors.blue
-                              : Colors.grey,
+                          color:
+                              categoryName == citem ? Colors.blue : Colors.grey,
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Padding(
@@ -68,7 +72,9 @@ class _NewsCategoriesPageState extends State<NewsCategoriesPage> {
                             child: Text(
                               citem.toString(),
                               style: GoogleFonts.poppins(
-                                  fontSize: 13, color: Colors.black, fontWeight: FontWeight.w700),
+                                  fontSize: 13,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700),
                             ),
                           ),
                         ),
@@ -100,74 +106,90 @@ class _NewsCategoriesPageState extends State<NewsCategoriesPage> {
                       final item = snapshot.data!.articles![index];
                       DateTime dateTime =
                           DateTime.parse(item.publishedAt.toString());
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 20.0),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: CachedNetworkImage(
-                                  imageUrl: item.urlToImage.toString(),
-                                  fit: BoxFit.cover,
-                                  height: height * .18,
-                                  width: width * .3,
-                                    placeholder: (context, url) => Center(child: SpinKitCircle(color: Colors.blue, size: 50,),),
-                                  errorWidget: (context, url, error) => Icon(
-                                    Icons.error_outline,
-                                    size: 50,
-                                    color: Colors.red,
+                      return InkWell(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => CategoriesDetailsPage(
+                                    categoriesUrl: item.url.toString())))),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 20.0),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: CachedNetworkImage(
+                                    imageUrl: item.urlToImage.toString(),
+                                    fit: BoxFit.cover,
+                                    height: height * .18,
+                                    width: width * .3,
+                                    placeholder: (context, url) => Center(
+                                      child: SpinKitCircle(
+                                        color: Colors.blue,
+                                        size: 50,
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) => Icon(
+                                      Icons.error_outline,
+                                      size: 50,
+                                      color: Colors.red,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                height: height * .18,
-                                padding: EdgeInsets.only(left: 15),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      '${item.title}',
-                                      maxLines: 3,
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 15,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                    Spacer(),
-                                    Expanded(
-                                      child: ListView(
-                                        scrollDirection: Axis.horizontal,
-                                         children: [
-                                           Row(
-                                             children: [
-                                               Text(
-                                                 '${item.source!.name}',
-                                                 style: GoogleFonts.poppins(
-                                                     fontWeight: FontWeight.w700,
-                                                     color: Colors.black54,
-                                                     fontSize: 15),
-                                               ),
-                                               SizedBox(width: 40,),
-                                               Text(
-                                                 format.format(dateTime),
-                                                 style: GoogleFonts.poppins(
-                                                     fontWeight: FontWeight.w700,
-                                                     fontSize: 15,
-                                                     color: Colors.black54),
-                                               ),
-                                             ],
-                                           ),
-                                         ],
+                              Expanded(
+                                child: Container(
+                                  height: height * .18,
+                                  padding: EdgeInsets.only(left: 15),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        '${item.title}',
+                                        maxLines: 3,
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 15,
+                                            color: Colors.black54,
+                                            fontWeight: FontWeight.w700),
                                       ),
-                                    ),
-                                  ],
+                                      Spacer(),
+                                      Expanded(
+                                        child: ListView(
+                                          scrollDirection: Axis.horizontal,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '${item.source!.name}',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      color: Colors.black54,
+                                                      fontSize: 15),
+                                                ),
+                                                SizedBox(
+                                                  width: 40,
+                                                ),
+                                                Text(
+                                                  format.format(dateTime),
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 15,
+                                                      color: Colors.black54),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },

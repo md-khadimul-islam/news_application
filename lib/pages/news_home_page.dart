@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:news_application/models/news.dart';
 import 'package:news_application/models/news_headlines.dart';
+import 'package:news_application/pages/headlines_details_page.dart';
 import 'package:news_application/pages/news_categories_page.dart';
 import 'package:news_application/pages/news_details_page.dart';
 import 'package:news_application/view_model/news_view.dart';
@@ -131,99 +131,110 @@ class _NewsHomePageState extends State<NewsHomePage> {
                       DateTime dateTime =
                           DateTime.parse(item.publishedAt.toString());
                       return SizedBox(
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.6,
-                              width: MediaQuery.of(context).size.height * 0.5,
-                              padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: CachedNetworkImage(
-                                  imageUrl: item.urlToImage.toString(),
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) => Center(
-                                    child: SpinKitCircle(
-                                      color: Colors.blue,
+                        child: InkWell(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HeadlineDetailsPage(
+                                      headlineUrl: item.url.toString()))),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.6,
+                                width: MediaQuery.of(context).size.height * 0.5,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: CachedNetworkImage(
+                                    imageUrl: item.urlToImage.toString(),
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) => Center(
+                                      child: SpinKitCircle(
+                                        color: Colors.blue,
+                                        size: 50,
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) => Icon(
+                                      Icons.error_outline,
                                       size: 50,
+                                      color: Colors.red,
                                     ),
                                   ),
-                                  errorWidget: (context, url, error) => Icon(
-                                    Icons.error_outline,
-                                    size: 50,
-                                    color: Colors.red,
-                                  ),
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              bottom: 10,
-                              child: Card(
-                                color: Colors.blueGrey,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                elevation: 5,
-                                child: Container(
-                                  alignment: Alignment.bottomCenter,
-                                  height:
-                                      MediaQuery.of(context).size.height * .22,
-                                  width: MediaQuery.of(context).size.width * .9,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.7,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            item.title.toString(),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                        ),
-                                      ),
-                                      Spacer(),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              '${item.source!.name}',
+                              Positioned(
+                                bottom: 10,
+                                child: Card(
+                                  color: Colors.blueGrey,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  elevation: 5,
+                                  child: Container(
+                                    alignment: Alignment.bottomCenter,
+                                    height: MediaQuery.of(context).size.height *
+                                        .22,
+                                    width:
+                                        MediaQuery.of(context).size.width * .9,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.7,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              item.title.toString(),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
                                               style: GoogleFonts.poppins(
                                                   fontSize: 17,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.blue),
+                                                  fontWeight: FontWeight.w700),
                                             ),
-                                            Text(
-                                              format.format(dateTime),
-                                              style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 17,
-                                              ),
-                                            ),
-                                          ],
+                                          ),
                                         ),
-                                      )
-                                    ],
+                                        Spacer(),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                '${item.source!.name}',
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Colors.blue),
+                                              ),
+                                              Text(
+                                                format.format(dateTime),
+                                                style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 17,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },
