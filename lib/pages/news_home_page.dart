@@ -29,6 +29,7 @@ class _NewsHomePageState extends State<NewsHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         centerTitle: true,
         title: Text(
           'News',
@@ -214,7 +215,7 @@ class _NewsHomePageState extends State<NewsHomePage> {
                                               Text(
                                                 '${item.source!.name}',
                                                 style: GoogleFonts.poppins(
-                                                    fontSize: 17,
+                                                    fontSize: 13,
                                                     fontWeight: FontWeight.w700,
                                                     color: Colors.blue),
                                               ),
@@ -222,7 +223,7 @@ class _NewsHomePageState extends State<NewsHomePage> {
                                                 format.format(dateTime),
                                                 style: GoogleFonts.poppins(
                                                   fontWeight: FontWeight.w700,
-                                                  fontSize: 17,
+                                                  fontSize: 13,
                                                 ),
                                               ),
                                             ],
