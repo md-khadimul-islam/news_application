@@ -30,7 +30,7 @@ class NewsRepository {
     throw Exception('error');
   }
   Future<News> getNews() async {
-    final String baseUrl = 'https://newsapi.org/v2/everything?q=apple&from=2023-11-29&to=${toDate}&sortBy=popularity&';
+    final String baseUrl = 'https://newsapi.org/v2/everything?q=apple&from=${fromDate}&to=${toDate}&sortBy=popularity&';
     final endUrl = 'apiKey=$newsApiKey';
     final url = Uri.parse('$baseUrl$endUrl');
     final response = await http.get(url);
